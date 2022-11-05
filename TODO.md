@@ -5,5 +5,5 @@
     [x] display title, image, descripion
     [] display all genres of movie selected, prob bring this in from database so
         dispatch -> watcher - > generator -> axios get with params -> result -> redux->DOM
-    [] add back to list button
-    [] remove bad selector from file, use a prop maybe
+    [x] add back to list button
+    [x] remove bad selector from file, use a prop maybe: did a array.find
