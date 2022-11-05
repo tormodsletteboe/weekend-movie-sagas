@@ -10,9 +10,10 @@ function MovieDetails() {
     //send msg to redux store
     const dispatch = useDispatch();
 
-   //grab the movie that matches the params.id
+    //grab the movie that matches the params.id        👇 returns 1 movie that matches params.id
     const movie = useSelector((store) => store.movies.find(movie => movie.id == params.id));
 
+    const genresForSelectedMovie = useSelector((store)=>store.genres_for_selected_movie);
     const getGenres = () => {
         dispatch({
             type: 'FETCH_GENRES_FOR_SELECTED_MOVIE',
@@ -22,14 +23,17 @@ function MovieDetails() {
 
     //on page load
     useEffect(() => {
-        //getGenres();
+        getGenres();
+        console.log()
     }, [params.id]);
 
     return (
         <>
             <h1>{movie.title}</h1>
             <img src={movie.poster} alt={movie.title} />
-            { }
+            {genresForSelectedMovie.map((genre)=>(
+                <p key={genre.name}>{genre.name}</p>
+            ))}
             <p>{movie.description}</p>
             <Link to={'/'}>
                 <button>Back to List</button>

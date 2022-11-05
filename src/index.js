@@ -20,12 +20,12 @@ function* rootSaga() {
 function* fetchGenresForASpecificMovie(action)
 {
     try {
-        const selectedMovie_Genres = yield axios.get(`/api/movie`); //TODO: make sure this path is good
-       
-        yield put({ type: 'SET_GENRES_FOR_SELECTED_MOVIE', payload: selectedMovie_Genres.data });
+        const selectedMovie_Genres = yield axios.get(`/api/movie/${action.payload}`); 
+       //                                                                         :point_down: will always only have 1 item in the outer array
+        yield put({ type: 'SET_GENRES_FOR_SELECTED_MOVIE', payload: selectedMovie_Genres.data[0].genres });
 
     } catch {
-        console.log('get all error');
+        console.log('get all error'); //TODO: fix all error messages to be more specific
     }
 }
 
