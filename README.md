@@ -15,13 +15,15 @@ The Movies app lets the user learn about movies.
  Chose a movie from the home screen to learn more about it. Genre/s and a description will be displayed. The genres will be displayed directly below the poster of the movie. Below the genres the user will find the description. Click the down arrow icon next to the description label
  to read all about the movie selected. The user can go back to the home screen by clicking the BACK TO LIST button.
 
+ User can add a new movie to their collection by clicking Add New Movie. Fill in required fields such as Title, Image Url, and Description. Don't forget to chose a genre for the movie.
+
 
  
 
 
 ## Screen Shot
 
-![Screenshot](public/images/feeling.jpg)
+![Screenshot](public/images/MovieApp.gif)
 
 
 
@@ -72,6 +74,16 @@ Link to software that is required to develop this website.
 2. On the details page of the movie clicked
     - Click the down arrow icon to read the description
 3. To go back to the home screen, click BACK TO LIST button
+4. Movies can be added in the Add New Movie page.
+    - Fill in: 
+        - Title
+        - Image Url
+        - Genre
+        - Description
+     - Click Save or Cancel.
+        - Save will save the Movie to the database and bring user to homepage
+        - Cancel will not save anything and take user to the homepage.
+     
 
 
 ## Built With
