@@ -61,10 +61,10 @@ function MovieDetails() {
                     sx={{ maxWidth: 186 }}
                     className='CardMedia'
                 />
-                <Stack direction='row' spacing={1} className='Stack'>
+                <Stack direction='row' spacing={2} className='Stack'>
 
                     {genresForSelectedMovie.map((genre) => (
-                        <Chip label={genre.name} variant="outlined" color="primary" />
+                        <Chip label={genre.name} variant="outlined" size="small" />
                     ))}
                 </Stack>
 
@@ -78,13 +78,13 @@ function MovieDetails() {
                             <Typography>Description...</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                        <Typography variant="body2" gutterBottom>
-                            {movie.description}
-                        </Typography>
+                            <Typography variant="body2" gutterBottom>
+                                {movie.description}
+                            </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    
-                        
+
+
                 </CardContent>
                 <CardActions className='CardActions'>
                     <Button variant='contained' onClick={() => history.push('/')}>Back to List</Button>
