@@ -15,7 +15,8 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES_FOR_SELECTED_MOVIE', fetchGenresForASpecificMovie);
-    yield takeEvery('FETCH_GENRES',fetchAllGenres);
+    yield takeEvery('FETCH_GENRES', fetchAllGenres);
+    yield takeEvery('CREATE_NEW_MOVIE', createNewMovie);
 }
 
 // send a request to the database for all the genres of a selected movie
@@ -28,10 +29,10 @@ function* fetchGenresForASpecificMovie(action) {
             //                              👇 will always only have 1 item in the outer array
             payload: selectedMovie_Genres.data[0].genres
         }); //                                    👆 an array of genre objects [{id,name},{},{}]
-       
+
     }
     catch {
-        console.log('Error in fetchGenresForASpecificMovie'); 
+        console.log('Error in fetchGenresForASpecificMovie');
     }
 }
 
@@ -40,11 +41,11 @@ function* fetchAllMovies() {
     // get all movies from the DB
     try {
         const movies = yield axios.get('/api/movie');
-        
-        yield put({ 
-            type: 'SET_MOVIES', 
+
+        yield put({
+            type: 'SET_MOVIES',
             payload: movies.data
-         });
+        });
 
     } catch {
         console.log('Error in fetchAllMovies');
@@ -53,11 +54,11 @@ function* fetchAllMovies() {
 }
 
 //send a request to the database for all genres
-function* fetchAllGenres(){
-    try{
-        
+function* fetchAllGenres() {
+    try {
+
         const genres = yield axios.get('/api/genre');
-       
+
         yield put({
             type: 'SET_GENRES',
             payload: genres.data
@@ -67,7 +68,20 @@ function* fetchAllGenres(){
     {
         console.log('Error in fetchAllGenres')
     }
-    
+
+}
+
+function* createNewMovie(action) {
+    try {
+        yield axios.post('/api/movie',action.payload);
+        yield put({
+            type: 'FETCH_MOVIES'
+        })
+
+    }
+    catch {
+        console.log('Error in createNewMovie')
+    }
 }
 
 // Create sagaMiddleware

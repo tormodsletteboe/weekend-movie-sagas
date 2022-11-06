@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory,Link } from 'react-router-dom';
 import './MovieList.css'
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
@@ -27,6 +27,10 @@ function MovieList() {
 
 //display all movie posters to the DOM
     return (
+        <>
+      <nav>
+        <Link to='/AddMovie'>Add New Movie</Link>
+      </nav>
         <Box sx={{  overflowY: 'scroll' }} className='Box'>
             {/* display images using masonry style layout */}
             <ImageList variant="masonry" cols={5} gap={20} className="movies">
@@ -45,6 +49,7 @@ function MovieList() {
                 })}
             </ImageList>
         </Box>
+        </>
 
     );
 }
