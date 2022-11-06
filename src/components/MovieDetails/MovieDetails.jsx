@@ -12,6 +12,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 
+//sweetalert2 import
+import Swal from 'sweetalert2';
 //css for this component
 import './MovieDetails.css';
 
@@ -19,7 +21,7 @@ import './MovieDetails.css';
 //displays detail view of a selected movie, title, poster image, description and any Genres, also has a back button to the movielist view "homepage"
 function MovieDetails() {
 
-    
+
 
 
     //get the :id from the url
@@ -39,7 +41,7 @@ function MovieDetails() {
 
     //gets genres for a movie with id of movie.id
     const getGenres = () => {
-    
+
         // fetch the genres
         dispatch({
             type: 'FETCH_GENRES_FOR_SELECTED_MOVIE',
@@ -50,21 +52,35 @@ function MovieDetails() {
     }
 
     //handle movie delete
-    const handleDelete = () =>{
-        dispatch({
-            type: 'DELETE_MOVIE',
-            payload: movie.id
+    const handleDelete = () => {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({
+                    type: 'DELETE_MOVIE',
+                    payload: movie.id
+                })
+                history.push('/');
+            }
         })
-        history.push('/');
+        
     }
 
     //on page load
     useEffect(() => {
         //get all the movies, TODO: this should be unessacary, need to save local state maybe to handle refresh, not sure
         //for page refresh need to dispatch and get movies again
-    //    dispatch({
-    //     type: 'FETCH_MOVIES'
-    //    });
+        //    dispatch({
+        //     type: 'FETCH_MOVIES'
+        //    });
 
         //get this movies genres
         getGenres();
