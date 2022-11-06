@@ -17,6 +17,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_GENRES_FOR_SELECTED_MOVIE', fetchGenresForASpecificMovie);
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('CREATE_NEW_MOVIE', createNewMovie);
+    yield takeEvery('DELETE_MOVIE',deleteMovie);
 }
 
 // send a request to the database for all the genres of a selected movie
@@ -71,16 +72,32 @@ function* fetchAllGenres() {
 
 }
 
+//send a post request to the database with a new movie to add
 function* createNewMovie(action) {
     try {
         yield axios.post('/api/movie',action.payload);
+        //there is a new movie update the store
         yield put({
             type: 'FETCH_MOVIES'
-        })
+        });
 
     }
     catch {
-        console.log('Error in createNewMovie')
+        console.log('Error in createNewMovie');
+    }
+}
+
+//delete movie from database table "movies" and from "movies_genres"
+function* deleteMovie(action){
+    try {
+        yield axios.delete(`/api/movie/${action.payload}`);
+        //a movie has been deleted, update the store
+        yield put({
+            type: 'FETCH_MOVIES'
+        });
+    } 
+    catch {
+        console.log('Error in deleteMovie');
     }
 }
 

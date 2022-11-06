@@ -29,7 +29,7 @@ router.get('/:id', (req, res) => {
                   GROUP BY "movies".id;
   `;
   //get all the genres for a movie with id of req.params.id
-  pool.query(query,[req.params.id])
+  pool.query(query, [req.params.id])
     .then(result => {
       res.send(result.rows);
     })
@@ -75,6 +75,33 @@ router.post('/', (req, res) => {
       console.log(err);
       res.sendStatus(500)
     })
+})
+
+router.delete('/:id', (req, res) => {
+  const queryTextForJunctionTable = `
+    DELETE FROM "movies_genres"
+    WHERE "movies_genres".movie_id = $1;
+  `;
+  pool.query(queryTextForJunctionTable, [req.params.id])
+    .then((dbResJunc) => {
+      const queryText = `
+        DELETE FROM "movies"
+        WHERE "id"=$1;
+      `;
+      pool.query(queryText, [req.params.id])
+        .then(dbResMov => {
+          res.send(200);
+        })
+        .catch((err) => {
+          console.log('ERROR: Delete a movie from movies table', err);
+          res.sendStatus(500)
+        });
+
+    })
+    .catch((err) => {
+      console.log('ERROR: Delete a movie from junction table', err);
+      res.sendStatus(500)
+    });
 })
 
 module.exports = router;

@@ -49,6 +49,15 @@ function MovieDetails() {
 
     }
 
+    //handle movie delete
+    const handleDelete = () =>{
+        dispatch({
+            type: 'DELETE_MOVIE',
+            payload: movie.id
+        })
+        history.push('/');
+    }
+
     //on page load
     useEffect(() => {
         //get all the movies, TODO: this should be unessacary, need to save local state maybe to handle refresh, not sure
@@ -115,6 +124,7 @@ function MovieDetails() {
                     {/* BACK TO LIST button */}
                     <CardActions className='CardActions'>
                         <Button variant='contained' onClick={() => history.push('/')}>Back to List</Button>
+                        <Button variant='contained' onClick={handleDelete}>Delete</Button>
                     </CardActions>
                 </Card>
             </>
