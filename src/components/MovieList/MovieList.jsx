@@ -28,9 +28,9 @@ function MovieList() {
 //display all movie posters to the DOM
     return (
         <>
-      <nav>
+      
         <Link to='/AddMovie'>Add New Movie</Link>
-      </nav>
+      
         <Box sx={{  overflowY: 'scroll' }} className='Box'>
             {/* display images using masonry style layout */}
             <ImageList variant="masonry" cols={5} gap={20} className="movies">

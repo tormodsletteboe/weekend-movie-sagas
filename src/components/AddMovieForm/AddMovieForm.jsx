@@ -1,7 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react';
-import { useHistory,Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './AddMovieForm.css'
+
+//material ui imports
+import Typography from '@mui/material/Typography';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 //grabs user input about a movie: TITLE, DESCRIPTION, IMAGE_URL,GENRE and stores it in a database
 function AddMovieForm() {
@@ -69,27 +81,59 @@ function AddMovieForm() {
     }
     return (
         <>
-        <nav>
-            <Link to='/'>HOME</Link>
-        </nav>
-            <h1>ADD MOVIE</h1>
-            <form onSubmit={handleSubmit} className='AddMovieForm'>
+            <CssBaseline />
+            <Container maxWidth="sm">
+                <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} >
+                    <Link to='/'>
+                        <Typography variant='button' gutterBottom>
+                            HOME
+                        </Typography>
+                    </Link>
+                    <Typography variant='h3'>ADD MOVIE</Typography>
+                    <form onSubmit={handleSubmit} className='AddMovieForm' >
 
-                <input type='text' placeholder='title..' onChange={(evt) => setTitle(evt.target.value)} value={title} />
-                <textarea type='text' placeholder='description..' onChange={(evt) => setDescription(evt.target.value)} value={description} />
-                <input type='text' placeholder='image url..' onChange={(evt) => setImageURL(evt.target.value)} value={imageURL} />
-                <select
-                    onChange={handleGenreSelect}
-                    value={genreId}
-                >
-                    <option value='' disabled>Select a genre</option>
-                    {genres.map((genre) => (
-                        <option key={genre.id} value={genre.id}>{genre.name}</option>
-                    ))}
-                </select>
-                <button type='submit'>Save</button>
-                <button type='button' onClick={handleCancel}>Cancel</button>
-            </form>
+                        <TextField required label="Title" variant="standard" onChange={(evt) => setTitle(evt.target.value)} value={title} />
+                        <TextField sx={{paddingBottom: 2}} required label="Image Url" variant="standard" onChange={(evt) => setImageURL(evt.target.value)} value={imageURL} />
+
+
+                        <FormControl sx={{ m: 1, minWidth: 220 }}>
+                            <InputLabel id="demo-simple-select-helper-label">Select genre</InputLabel>
+                            <Select
+                                onChange={handleGenreSelect}
+                                value={genreId}
+                                label="Select genre"
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                required
+                            >
+
+                                {genres.map((genre) => (
+                                    <MenuItem value={genre.id}>{genre.name}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth sx={{ paddingLeft: 2 }}>
+                            <TextField
+                                required
+                                sx={{ paddingLeft: 2 }}
+                                fullWidth
+                                multiline
+                                rows={4}
+                                variant="standard"
+                                label='Description'
+                                onChange={(evt) => setDescription(evt.target.value)}
+                                value={description}
+                            />
+                        </FormControl>
+                        <Button type='submit'>Save</Button>
+                        <Button type='button' onClick={handleCancel}>Cancel</Button>
+                    </form>
+                </Box>
+            </Container>
+
+
+
+
 
 
         </>
