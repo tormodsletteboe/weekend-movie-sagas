@@ -1,0 +1,27 @@
+.Card{
+    margin: 10px auto 10px auto;
+    text-align: center;
+}
+
+.CardMedia{
+    margin: 0 auto;
+}
+.CardContent{
+    color:rgb(126 126 126);
+    text-align: left;
+    padding: 5px;
+}
+.Stack{
+    margin-top: 5px;
+    justify-content: center;
+}
+.CardActions{
+    justify-content: center;
+}
+
+body{
+   background-color: #e7ebef;
+}
+.CardHeader{
+    color:rgb(33 33 33);
+}
