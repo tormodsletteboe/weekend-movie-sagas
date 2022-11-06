@@ -53,7 +53,7 @@ function MovieDetails() {
 
     //handle movie delete
     const handleDelete = () => {
-
+        //ask user if they are sure they want to delete the movie
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
