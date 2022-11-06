@@ -5,22 +5,30 @@ import './MovieList.css'
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ImageListItemBar from '@mui/material/ImageListItemBar'; //used if title of movies needs to be displayed
 
 function MovieList() {
 
+    //handle dispatch to store
     const dispatch = useDispatch();
+
+    //get movies from redux store
     const movies = useSelector(store => store.movies);
+
+    //handle browser history 
     const history = useHistory();
 
+    //on page load
     useEffect(() => {
+        //get all movies from the database
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
 
-
+//display all movie posters to the DOM
     return (
         <Box sx={{  overflowY: 'scroll' }} className='Box'>
+            {/* display images using masonry style layout */}
             <ImageList variant="masonry" cols={5} gap={20} className="movies">
                 {movies.map(movie => {
                     return (
@@ -31,7 +39,7 @@ function MovieList() {
                                 alt={movie.title}
                                 loading="lazy"
                             />
-                            {/* <ImageListItemBar position="below" title={'.........'} /> */}
+                            {/* <ImageListItemBar position="below" title={movie.title} /> */}
                         </ImageListItem>
                     );
                 })}

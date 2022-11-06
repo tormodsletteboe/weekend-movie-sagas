@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
 
 });
 
+// get all genres associated with the movie /:id
 router.get('/:id', (req, res) => {
 
   const query = `

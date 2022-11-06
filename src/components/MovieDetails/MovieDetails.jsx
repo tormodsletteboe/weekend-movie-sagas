@@ -1,19 +1,18 @@
-import { useParams, Link, useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import Button from '@mui/material/Button';
+
+//material ui imports
 import { Card, CardMedia, CardHeader, CardContent, Typography, CardActions } from '@mui/material';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Button from '@mui/material/Button';
 
+//css for this component
 import './MovieDetails.css';
 
 
@@ -31,7 +30,10 @@ function MovieDetails() {
     //grab the movie that matches the params.id        👇 returns 1 movie that matches params.id
     const movie = useSelector((store) => store.movies.find(movie => movie.id == params.id));
 
+    //grab the genres for this movie from the store
     const genresForSelectedMovie = useSelector((store) => store.genres_for_selected_movie);
+
+    //gets genres for a movie with id of movie.id
     const getGenres = () => {
         dispatch({
             type: 'FETCH_GENRES_FOR_SELECTED_MOVIE',
@@ -41,19 +43,20 @@ function MovieDetails() {
 
     //on page load
     useEffect(() => {
+        //get this movies genres
         getGenres();
-        console.log()
     }, [params.id]);
 
-
-
+    //Display on the DOM
     return (
         <>
             <Card sx={{ maxWidth: 345 }} className='Card'>
+                {/* Title */}
                 <CardHeader
                     title={movie.title}
                     className='CardHeader'
                 />
+                {/* The movie poster */}
                 <CardMedia
                     component='img'
                     image={movie.poster}
@@ -61,13 +64,13 @@ function MovieDetails() {
                     sx={{ maxWidth: 186 }}
                     className='CardMedia'
                 />
+                {/* display the genres of this movie */}
                 <Stack direction='row' spacing={2} className='Stack'>
-
                     {genresForSelectedMovie.map((genre) => (
                         <Chip label={genre.name} variant="outlined" size="small" />
                     ))}
                 </Stack>
-
+                {/* display the description */}
                 <CardContent className='CardContent'>
                     <Accordion>
                         <AccordionSummary
@@ -86,17 +89,11 @@ function MovieDetails() {
 
 
                 </CardContent>
+                {/* BACK TO LIST button */}
                 <CardActions className='CardActions'>
                     <Button variant='contained' onClick={() => history.push('/')}>Back to List</Button>
                 </CardActions>
-
-
-
             </Card>
-
-
-
-
         </>
     );
 

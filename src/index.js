@@ -14,18 +14,23 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-    yield takeEvery('FETCH_GENRES_FOR_SELECTED_MOVIE',fetchGenresForASpecificMovie)
+    yield takeEvery('FETCH_GENRES_FOR_SELECTED_MOVIE', fetchGenresForASpecificMovie)
 }
 
-function* fetchGenresForASpecificMovie(action)
-{
+// send a request to the database for all the genres of a selected movie
+function* fetchGenresForASpecificMovie(action) {
     try {
-        const selectedMovie_Genres = yield axios.get(`/api/movie/${action.payload}`); 
-       //                                                                         :point_down: will always only have 1 item in the outer array
-        yield put({ type: 'SET_GENRES_FOR_SELECTED_MOVIE', payload: selectedMovie_Genres.data[0].genres });
+        const selectedMovie_Genres = yield axios.get(`/api/movie/${action.payload}`);
 
-    } catch {
-        console.log('get all error'); //TODO: fix all error messages to be more specific
+        yield put({
+            type: 'SET_GENRES_FOR_SELECTED_MOVIE',
+            //                              👇 will always only have 1 item in the outer array
+            payload: selectedMovie_Genres.data[0].genres
+        }); //                                    👆 an array of genre objects [{id,name},{},{}]
+       
+    }
+    catch {
+        console.log('Error in fetchGenresForASpecificMovie'); 
     }
 }
 
@@ -33,13 +38,16 @@ function* fetchAllMovies() {
     // get all movies from the DB
     try {
         const movies = yield axios.get('/api/movie');
-        console.log('get all:', movies.data);
-        yield put({ type: 'SET_MOVIES', payload: movies.data });
+        
+        yield put({ 
+            type: 'SET_MOVIES', 
+            payload: movies.data
+         });
 
     } catch {
-        console.log('get all error');
+        console.log('Error in fetchAllMovies');
     }
-        
+
 }
 
 // Create sagaMiddleware
@@ -55,7 +63,7 @@ const movies = (state = [], action) => {
     }
 }
 
-// Used to store the movie genres
+//TODO: Currently not used to store the movie genres TODO: might use this in the stretch goals
 const genres = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
@@ -65,7 +73,9 @@ const genres = (state = [], action) => {
     }
 }
 
-const genres_for_selected_movie =(state=[], action) =>{
+
+// Used to store the movie genres of specific movie
+const genres_for_selected_movie = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES_FOR_SELECTED_MOVIE':
             return action.payload;
@@ -77,8 +87,8 @@ const genres_for_selected_movie =(state=[], action) =>{
 const storeInstance = createStore(
     combineReducers({
         movies,
-        genres,
-        genres_for_selected_movie
+        genres_for_selected_movie,
+        genres
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
@@ -90,7 +100,7 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={storeInstance}>
-        <App />
+            <App />
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
