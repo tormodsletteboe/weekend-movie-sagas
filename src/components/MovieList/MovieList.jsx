@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory,Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './MovieList.css'
+
+//material ui imports
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar'; //used if title of movies needs to be displayed
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import { Tooltip } from '@mui/material';
 
 function MovieList() {
 
@@ -25,30 +30,37 @@ function MovieList() {
     }, []);
 
 
-//display all movie posters to the DOM
+    //display all movie posters to the DOM
     return (
         <>
-      
-        <Link to='/AddMovie'>Add New Movie</Link>
-      
-        <Box sx={{  overflowY: 'scroll' }} className='Box'>
-            {/* display images using masonry style layout */}
-            <ImageList variant="masonry" cols={5} gap={20} className="movies">
-                {movies.map(movie => {
-                    return (
-                        <ImageListItem key={movie.id}>
-                            <img
-                                onClick={() => { history.push(`/details/${movie.id}`) }}
-                                src={movie.poster}
-                                alt={movie.title}
-                                loading="lazy"
-                            />
-                            {/* <ImageListItemBar position="below" title={movie.title} /> */}
-                        </ImageListItem>
-                    );
-                })}
-            </ImageList>
-        </Box>
+
+
+
+            <Box sx={{ overflowY: 'scroll' }} className='Box'>
+                <Tooltip title="Add New Movie">
+                <Link to='/AddMovie'>
+                    <Fab color="primary" aria-label="add">
+                        <AddIcon />
+                    </Fab>
+                </Link>
+                </Tooltip>
+                {/* display images using masonry style layout */}
+                <ImageList variant="masonry" cols={5} gap={20} className="movies">
+                    {movies.map(movie => {
+                        return (
+                            <ImageListItem key={movie.id}>
+                                <img
+                                    onClick={() => { history.push(`/details/${movie.id}`) }}
+                                    src={movie.poster}
+                                    alt={movie.title}
+                                    loading="lazy"
+                                />
+                                {/* <ImageListItemBar position="below" title={movie.title} /> */}
+                            </ImageListItem>
+                        );
+                    })}
+                </ImageList>
+            </Box>
         </>
 
     );

@@ -93,7 +93,12 @@ function AddMovieForm() {
                     <form onSubmit={handleSubmit} className='AddMovieForm' >
 
                         <TextField required label="Title" variant="standard" onChange={(evt) => setTitle(evt.target.value)} value={title} />
-                        <TextField sx={{paddingBottom: 2}} required label="Image Url" variant="standard" onChange={(evt) => setImageURL(evt.target.value)} value={imageURL} />
+                        <TextField
+                            sx={{ paddingBottom: 2 }} 
+                            required label="Image Url" 
+                            variant="standard" 
+                            onChange={(evt) => setImageURL(evt.target.value)} 
+                            value={imageURL} />
 
 
                         <FormControl sx={{ m: 1, minWidth: 220 }}>
