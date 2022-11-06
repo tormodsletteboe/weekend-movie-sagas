@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react';
-
+import { useHistory,Link } from 'react-router-dom';
+import './AddMovieForm.css'
 
 //grabs user input about a movie: TITLE, DESCRIPTION, IMAGE_URL,GENRE and stores it in a database
 function AddMovieForm() {
@@ -16,6 +17,9 @@ function AddMovieForm() {
 
     //handles messages to the redux store
     const dispatch = useDispatch();
+
+    //handles browser history
+    const history = useHistory();
 
     //on page load \
     useEffect(() => {
@@ -33,19 +37,47 @@ function AddMovieForm() {
         //store info in database using a dispatch
         evt.preventDefault();
 
-        //dispatch
-        
+        //create movie object to post
+        const newMovie = {
+            title,
+            description,
+            poster: imageURL,
+            genre_id: genreId
+        };
+
+        // dispatch 
+        dispatch({
+            type: 'CREATE_NEW_MOVIE',
+            payload: newMovie
+        })
+
 
         //clear inputs
-        
+        setTitle('');
+        setDescription('');
+        setImageURL('');
+        setGenreId('');
+
+        //go to home page
+        history.push('/');
+
     }
-    const handleTitleChange = (evt) => {
-        setTitle(evt.target.value);
+    //handle button cancel click
+    const handleCancel = () => {
+        //go to home page
+        history.push('/');
     }
     return (
         <>
+        <nav>
+            <Link to='/'>HOME</Link>
+        </nav>
             <h1>ADD MOVIE</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='AddMovieForm'>
+
+                <input type='text' placeholder='title..' onChange={(evt) => setTitle(evt.target.value)} value={title} />
+                <textarea type='text' placeholder='description..' onChange={(evt) => setDescription(evt.target.value)} value={description} />
+                <input type='text' placeholder='image url..' onChange={(evt) => setImageURL(evt.target.value)} value={imageURL} />
                 <select
                     onChange={handleGenreSelect}
                     value={genreId}
@@ -55,7 +87,8 @@ function AddMovieForm() {
                         <option key={genre.id} value={genre.id}>{genre.name}</option>
                     ))}
                 </select>
-                <input type='text' placeholder='Movie title..' onChange={handleTitleChange} value={title} />
+                <button type='submit'>Save</button>
+                <button type='button' onClick={handleCancel}>Cancel</button>
             </form>
 
 

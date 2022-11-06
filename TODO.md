@@ -9,6 +9,7 @@
     [x] remove bad selector from file, use a prop maybe: did a array.find
     [] maybe replace the accordion with something simpler, something that shows part of the text and then allows to expand it. same as on my resume 
     [] allow refresh ie command R on this page
-    [] changed movies details path from /:id to /details/:id, think i fixed all the places that need to be fixed, in router path and image click history push
+    [x] changed movies details path from /:id to /details/:id, think i fixed all the places that need to be fixed, in router path and image click history push
     
-[] add movie form
+[X] add movie form
+[] add material ui to new movie form

@@ -1,4 +1,4 @@
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import MovieList from '../MovieList/MovieList'
 import MovieDetails from '../MovieDetails/MovieDetails';
@@ -10,11 +10,14 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+
 function App() {
   return (
     <div className="App">
 
+
       <Router>
+        
         {/* home page */}
         <Route path="/" exact>
           <MovieList />
@@ -25,8 +28,8 @@ function App() {
           <MovieDetails />
         </Route>
 
-         {/* Add Movie page */}
-         <Route path="/AddMovie" exact>
+        {/* Add Movie page */}
+        <Route path="/AddMovie" exact>
           <AddMovieForm />
         </Route>
 

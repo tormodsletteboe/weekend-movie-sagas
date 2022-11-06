@@ -1,0 +1,14 @@
+.AddMovieForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+textarea{
+    height: 107px;
+    width: 299px;
+}
+/* add padding to each form element */
+.AddMovieForm * {
+    margin-bottom: 5px;
+}
