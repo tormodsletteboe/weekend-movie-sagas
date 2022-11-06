@@ -18,6 +18,7 @@ import './MovieDetails.css';
 
 //displays detail view of a selected movie, title, poster image, description and any Genres, also has a back button to the movielist view "homepage"
 function MovieDetails() {
+    
     //get the :id from the url
     const params = useParams();
 
@@ -67,7 +68,7 @@ function MovieDetails() {
                 {/* display the genres of this movie */}
                 <Stack direction='row' spacing={2} className='Stack'>
                     {genresForSelectedMovie.map((genre) => (
-                        <Chip label={genre.name} variant="outlined" size="small" />
+                        <Chip key={genre.name} label={genre.name} variant="outlined" size="small" />
                     ))}
                 </Stack>
                 {/* display the description */}

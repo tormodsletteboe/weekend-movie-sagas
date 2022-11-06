@@ -34,7 +34,7 @@ function MovieList() {
                     return (
                         <ImageListItem key={movie.id}>
                             <img
-                                onClick={() => { history.push(`/${movie.id}`) }}
+                                onClick={() => { history.push(`/details/${movie.id}`) }}
                                 src={movie.poster}
                                 alt={movie.title}
                                 loading="lazy"
