@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './MovieList.css'
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
 
 function MovieList() {
 
@@ -13,22 +17,26 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    
+
 
     return (
-        <main>
-            <h1>MovieList</h1>
-            <section className="movies">
+        <Box sx={{  overflowY: 'scroll' }} className='Box'>
+            <ImageList variant="masonry" cols={5} gap={20} className="movies">
                 {movies.map(movie => {
                     return (
-                        <div key={movie.id} >
-                            <h3>{movie.title}</h3>
-                            <img onClick={()=>{history.push(`/${movie.id}`)}} src={movie.poster} alt={movie.title}/>
-                        </div>
+                        <ImageListItem key={movie.id}>
+                            <img
+                                onClick={() => { history.push(`/${movie.id}`) }}
+                                src={movie.poster}
+                                alt={movie.title}
+                                loading="lazy"
+                            />
+                            {/* <ImageListItemBar position="below" title={'.........'} /> */}
+                        </ImageListItem>
                     );
                 })}
-            </section>
-        </main>
+            </ImageList>
+        </Box>
 
     );
 }
