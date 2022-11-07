@@ -139,18 +139,21 @@ function MovieDetails() {
 
 
                     </CardContent>
-                    {/* BACK TO LIST button */}
+                    
                     <CardActions className='CardActions'>
+                        {/* BACK TO LIST button */}
                         <Button variant='contained' onClick={() => history.push('/')}>Back to List</Button>
+                        {/* Delete this movie */}
                         <Button variant='contained' onClick={handleDelete}>Delete</Button>
-                        {/* <Fab 
+                        {/* edit this movie */}
+                        <Fab 
                             color="secondary" 
                             aria-label="edit" 
                             size="small" 
                             onClick={()=>history.push(`/edit/${movie.id}`)}
                             >
                             <EditIcon />
-                        </Fab> */}
+                        </Fab>
                     </CardActions>
                 </Card>
             </>
