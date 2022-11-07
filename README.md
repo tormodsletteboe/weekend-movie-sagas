@@ -74,7 +74,7 @@ Link to software that is required to develop this website.
 2. On the details page of the movie clicked
     - Click the down arrow icon to read the description
     - Click the DELETE button to delete the movie. A modal will appear with Are you sure?
-    - Click pencil icon to edit the movies Title, Image, Genre or Description.
+    - Click pencil icon to edit the movies Title, Image, or Description.
 3. To go back to the home screen, click BACK TO LIST button
 4. Movies can be added in the Add New Movie page.
     - Fill in: 
