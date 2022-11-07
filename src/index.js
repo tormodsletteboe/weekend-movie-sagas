@@ -18,12 +18,33 @@ function* rootSaga() {
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('CREATE_NEW_MOVIE', createNewMovie);
     yield takeEvery('DELETE_MOVIE',deleteMovie);
+    yield takeEvery('FETCH_MOVIE_WITH_ID',fetchMovie_With_ID);
+    yield takeEvery('UPDATE_MOVIE',updateCurrentMovie);
+}
+
+//send a put request to the database, need to update a movie
+function* updateCurrentMovie(action){
+    try {
+        yield axios.put('/api/movie',action.payload);
+        //a movie got updated the store, ie get all from database again
+        yield put({
+            type: 'FETCH_MOVIES'
+        })
+        //current movie got update on the database, need to update the store shelf
+        yield put({
+            type: 'FETCH_MOVIE_WITH_ID',
+            payload: action.payload.id
+        })
+    } 
+    catch{
+        console.log('Error in updateCurrentMovie');
+    }
 }
 
 // send a request to the database for all the genres of a selected movie
 function* fetchGenresForASpecificMovie(action) {
     try {
-        const selectedMovie_Genres = yield axios.get(`/api/movie/${action.payload}`);
+        const selectedMovie_Genres = yield axios.get(`/api/genre/${action.payload}`);
 
         yield put({
             type: 'SET_GENRES_FOR_SELECTED_MOVIE',
@@ -35,6 +56,24 @@ function* fetchGenresForASpecificMovie(action) {
     catch {
         console.log('Error in fetchGenresForASpecificMovie');
     }
+}
+
+//get a movie with specific id
+function* fetchMovie_With_ID(action){
+    try {
+        //       👇 will be and obj with keys id,title,poster,description
+        const movie_with_id = yield axios.get(`/api/movie/${action.payload}`);
+        console.log('movie with id',movie_with_id);
+        yield put({
+            type: 'SET_CURRENT_MOVIE',
+            payload: movie_with_id.data
+        });
+    } 
+    catch{
+        console.log('Error in fetchGenresForASpecificMovie');
+    }
+    
+    
 }
 
 // send a request to the database for all movies
@@ -112,7 +151,7 @@ const movies = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 
 //TODO: Currently not used to store the movie genres TODO: might use this in the stretch goals
 const genres = (state = [], action) => {
@@ -122,8 +161,17 @@ const genres = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 
+//shelf in store for current movie selected
+const current_movie = (state={},action)=>{
+    switch (action.type) {
+        case 'SET_CURRENT_MOVIE':
+            return action.payload;
+        default:
+            return state;
+    }
+};
 
 // Used to store the movie genres of specific movie
 const genres_for_selected_movie = (state = [], action) => {
@@ -133,13 +181,14 @@ const genres_for_selected_movie = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres_for_selected_movie,
-        genres
+        genres,
+        current_movie
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

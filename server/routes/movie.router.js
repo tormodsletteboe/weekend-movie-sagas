@@ -18,28 +18,30 @@ router.get('/', (req, res) => {
 
 });
 
-// get all genres associated with the movie /:id
+
+
+//get a specific movie
 router.get('/:id', (req, res) => {
 
   const query = `
-                  SELECT json_agg("genres") AS genres FROM "movies"
-                  LEFT JOIN "movies_genres" ON "movies_genres".movie_id = "movies".id
-                  LEFT JOIN "genres" ON "genres".id = "movies_genres".genre_id
-                  WHERE "movies".id = $1
-                  GROUP BY "movies".id;
+                 SELECT * FROM "movies"
+                 WHERE "id" =$1; 
   `;
-  //get all the genres for a movie with id of req.params.id
+  //get the movie data for movie with id of req.params.id
   pool.query(query, [req.params.id])
     .then(result => {
-      res.send(result.rows);
+      //                  👇 always just send the 0th row, which is an {} obj
+      res.send(result.rows[0]);
     })
     .catch(err => {
-      console.log('ERROR: Get all genres for selected movie', err);
+      console.log('ERROR: Get a movie for /:id', err);
       res.sendStatus(500)
     })
 
 });
 
+
+// add a new movie to the tables, junction and movie tables
 router.post('/', (req, res) => {
   console.log(req.body);
   // RETURNING "id" will give us back the id of the created movie
@@ -75,8 +77,10 @@ router.post('/', (req, res) => {
       console.log(err);
       res.sendStatus(500)
     })
-})
+});
 
+
+//delete data related to the movie with id, ie delete records in the junction table and the movies table
 router.delete('/:id', (req, res) => {
   const queryTextForJunctionTable = `
     DELETE FROM "movies_genres"
@@ -102,6 +106,25 @@ router.delete('/:id', (req, res) => {
       console.log('ERROR: Delete a movie from junction table', err);
       res.sendStatus(500)
     });
-})
+});
+
+//get all movies from database
+router.put('/', (req, res) => {
+
+  const query = `
+    UPDATE "movies"
+    SET "title" = $1, "description"=$2, "poster" = $3
+    WHERE "id"=$4;
+  `;
+  pool.query(query, [req.body.title,req.body.description,req.body.poster,req.body.id])
+    .then(result => {
+      res.send(200);
+    })
+    .catch(err => {
+      console.log('ERROR: Put a movie', err);
+      res.sendStatus(500)
+    })
+
+});
 
 module.exports = router;

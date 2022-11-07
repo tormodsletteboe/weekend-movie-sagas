@@ -33,9 +33,9 @@ function App() {
           <AddMovieForm />
         </Route>
 
-        {/* <Route path="/edit/:id" exact>
+        <Route path="/edit/:id" exact>
           <EditMovieDetails />
-        </Route> */}
+        </Route>
 
       </Router>
     </div>
