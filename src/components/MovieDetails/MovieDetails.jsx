@@ -11,6 +11,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
+import EditIcon from '@mui/icons-material/Edit';
 
 //sweetalert2 import
 import Swal from 'sweetalert2';
@@ -71,7 +73,7 @@ function MovieDetails() {
                 history.push('/');
             }
         })
-        
+
     }
 
     //on page load
@@ -141,6 +143,14 @@ function MovieDetails() {
                     <CardActions className='CardActions'>
                         <Button variant='contained' onClick={() => history.push('/')}>Back to List</Button>
                         <Button variant='contained' onClick={handleDelete}>Delete</Button>
+                        {/* <Fab 
+                            color="secondary" 
+                            aria-label="edit" 
+                            size="small" 
+                            onClick={()=>history.push(`/edit/${movie.id}`)}
+                            >
+                            <EditIcon />
+                        </Fab> */}
                     </CardActions>
                 </Card>
             </>

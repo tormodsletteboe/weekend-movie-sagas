@@ -13,7 +13,7 @@ _Duration: 2 Day Sprint_
 
 The Movies app lets the user learn about movies.
  Chose a movie from the home screen to learn more about it. Genre/s and a description will be displayed. The genres will be displayed directly below the poster of the movie. Below the genres the user will find the description. Click the down arrow icon next to the description label
- to read all about the movie selected. The user can go back to the home screen by clicking the BACK TO LIST button.
+ to read all about the movie selected. The user can go back to the home screen by clicking the BACK TO LIST button, DELETE the movie, or Edit the movie.
 
  User can add a new movie to their collection by clicking Add New Movie. Fill in required fields such as Title, Image Url, and Description. Don't forget to chose a genre for the movie.
 
@@ -73,6 +73,8 @@ Link to software that is required to develop this website.
 1. Click on a movie poster to learn more about it
 2. On the details page of the movie clicked
     - Click the down arrow icon to read the description
+    - Click the DELETE button to delete the movie. A modal will appear with Are you sure?
+    - Click pencil icon to edit the movies Title, Image, Genre or Description.
 3. To go back to the home screen, click BACK TO LIST button
 4. Movies can be added in the Add New Movie page.
     - Fill in: 

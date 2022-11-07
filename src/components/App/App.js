@@ -3,7 +3,7 @@ import './App.css';
 import MovieList from '../MovieList/MovieList'
 import MovieDetails from '../MovieDetails/MovieDetails';
 import AddMovieForm from '../AddMovieForm/AddMovieForm';
-
+import EditMovieDetails from '../EditMovieDetails/EditMovieDetails';
 //not sure if fontsource import goes here or somewhere else, work with material ui
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -17,7 +17,7 @@ function App() {
 
 
       <Router>
-        
+
         {/* home page */}
         <Route path="/" exact>
           <MovieList />
@@ -32,6 +32,10 @@ function App() {
         <Route path="/AddMovie" exact>
           <AddMovieForm />
         </Route>
+
+        {/* <Route path="/edit/:id" exact>
+          <EditMovieDetails />
+        </Route> */}
 
       </Router>
     </div>

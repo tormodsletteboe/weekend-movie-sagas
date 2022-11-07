@@ -113,7 +113,7 @@ function AddMovieForm() {
                             >
 
                                 {genres.map((genre) => (
-                                    <MenuItem value={genre.id}>{genre.name}</MenuItem>
+                                    <MenuItem key={genre.id} value={genre.id}>{genre.name}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
