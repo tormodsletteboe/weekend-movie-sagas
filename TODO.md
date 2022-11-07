@@ -12,4 +12,10 @@
     [x] changed movies details path from /:id to /details/:id, think i fixed all the places that need to be fixed, in router path and image click history push
     
 [X] add movie form
-[] add material ui to new movie form
+[X] add material ui to new movie form
+[x] add material ui to homepage
+[x] add delete button for movie, and corresponding routes
+[x] add edit button, component and need functionality
+
+BUGS
+[] sometimes wrong movie shows up in the edit view, or no info at all
