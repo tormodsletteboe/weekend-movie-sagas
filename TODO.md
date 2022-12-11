@@ -19,3 +19,4 @@
 
 BUGS
 [] sometimes wrong movie shows up in the edit view, or no info at all
+[] add fetch a single movie on on useeffect using the params.id, also fetch 
