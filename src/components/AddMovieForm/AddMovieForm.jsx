@@ -108,8 +108,9 @@ function AddMovieForm() {
                                 value={genreId}
                                 label="Select genre"
                                 labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select-helper"
+                               
                                 required
+                                
                             >
 
                                 {genres.map((genre) => (
